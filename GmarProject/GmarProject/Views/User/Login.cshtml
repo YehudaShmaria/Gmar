@@ -1,0 +1,51 @@
+﻿@model GmarProject.Models.Entry
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div style="text-align:center" class="form-horizontal text-center">
+        <h4>ברוכים הבאים</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger text-center" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div style="padding:5px" class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="היכנס לאתר" />
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("הירשם", "CreateUser", "User")
+        </div>
+    </div>
+       
+    }
+</body>
+</html>

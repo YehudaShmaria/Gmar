@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1340
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GmarProject", "GmarProject\GmarProject.csproj", "{B0E257AD-0C40-4327-9630-576B108F28B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GmarProjectData", "GmarProjectData\GmarProjectData.csproj", "{8B9F89F9-93BD-44E0-9B7B-7D321D60676C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0E257AD-0C40-4327-9630-576B108F28B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E257AD-0C40-4327-9630-576B108F28B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E257AD-0C40-4327-9630-576B108F28B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E257AD-0C40-4327-9630-576B108F28B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B9F89F9-93BD-44E0-9B7B-7D321D60676C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B9F89F9-93BD-44E0-9B7B-7D321D60676C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B9F89F9-93BD-44E0-9B7B-7D321D60676C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B9F89F9-93BD-44E0-9B7B-7D321D60676C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5397832C-D6BA-449A-8C5D-E76983B120BB}
+	EndGlobalSection
+EndGlobal

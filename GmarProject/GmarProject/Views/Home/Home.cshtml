@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+<div class="container text-center">
+    <div>
+        <h1 style="font-style:italic;font-size:50px" class="text-primary"><u>Home Page</u></h1>
+        <h2 style="display:none" id="Wel" class="text-success"> @User.Identity.Name שמחים שחזרת אלינו </h2>
+        <img onload="GetData()" style="height:200px; padding:30px" src="~/Images/Home.jfif">
+    </div>
+    <p style="font-size:25px;color:black; background-color:aliceblue">אנחנו פה על מנת לעשות את מירב המאמצים בכדי לעזור לך להיות מי שאתה רוצה להיות, והכי חשוב בקלות ובהנאה מכל רגע ורגע!!!!!</p>
+    <hr />
+
+    <div class="row justify-content-center">
+        <div style="border-right:solid; border-radius:5px" class="col-md-8 bg-info">
+            <h2 style="background-color:darkkhaki; border:solid; border-radius:5px">קצב התקדמות שבועית</h2>
+
+            <div id="show" style="display:none">
+                <h2 class="h2 text-info" id="info"></h2>
+                <div>
+                    <h3>אחוזים לשבוע:</h3>
+                    <div class="progress">
+                        <div id="DoProgress" class="progress-bar bg-success"></div>
+                    </div>
+                </div>
+                <div style="padding-bottom:10px">
+                    <h3>אחוזים שמילאת השבוע:</h3>
+                    <div class="progress">
+                        <div id="DoProgress1" class="progress-bar bg-success"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-info" id="InfoPerson">
+                <h3 id="Test"></h3>
+            </div>
+        </div>
+        <div style="border-radius:5px" class="col-lg-4 text-right">
+            <h2 class="text-center" style="border:solid; background-color:darkkhaki; border-radius:5px">נתונים חשובים של האתר</h2>
+            <div class="btn-group-vertical">
+                <a href="" class="btn btn-info btn">פרופיל שלי</a>
+                <br />
+                <a href="" class="btn btn-warning btn">מכונה לומדת</a>
+                <br />
+                <a href="" class="btn btn-info btn">סיכום שבועי</a>
+                <br />
+                <a href="" class="btn btn-warning btn">הכנס נתון יומי</a>
+            </div>
+            <img class="img-thumbnail" src="~/Images/Week.jpg" style="height:150px; display:inline-block; margin-right:25px"  />
+        </div>
+    </div>
+</div>
+<script>
+    let today = new Date();
+    var counter = ((today.getDay() + 1) / 7) * 100 | 0;
+    var id = "DoProgress";
+    var id1 = "DoProgress1";
+    function Test(Obj) {
+        $('#Wel').fadeIn(3000);
+        $('#info').text('משקל נוכחי' + ' ' + Obj.Weight)
+        //for (var i = 0; i < Obj.TempWeek.length; i++) {
+        //    document.getElementById('Test').innerHTML += Obj.TempWeek[i].Morning + "<br>";
+        //    document.getElementById('Test1').innerHTML += Obj.TempWeek[i].Morning + "<br>";
+        //}
+        var counter1 = (Obj.TempWeek.length / 7) * 100 | 0;
+        $('#show').fadeIn(3000, function () {
+            printPresent(id, counter);
+            printPresent(id1, counter1);
+        });
+        
+        function printPresent(id,counter) {
+            document.getElementById(id).style.width = `${counter}%`;
+            document.getElementById(id).innerHTML = counter + '%';
+        }
+         
+    }
+</script>
+
+

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "WeeklySummary";
+}
+
+<div class="text-center">
+    <h1 style="font-style:italic;font-size:50px" class="text-primary"><u>Weekly Summary</u></h1>
+    <img onload="GetData()" style="height:100px;" src="~/Images/Week.jpg">
+    <h1 style="display:none" id="Test5">Hi My Name Is Yehuda</h1>
+</div>
+<script>
+    function Test2(Obj) {
+        $("#Test5").fadeIn(3000);
+        console.log(Obj);
+    }
+</script>
