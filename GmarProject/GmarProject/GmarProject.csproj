@@ -150,6 +150,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\5.jpg" />
     <Content Include="Images\Contact.jpg" />
+    <Content Include="Images\empti.png" />
     <Content Include="Images\Home.jfif" />
     <Content Include="Images\Week.jpg" />
     <Content Include="Images\הורדה.jfif" />

@@ -4,7 +4,6 @@ var UserController = express.Router();
 UserController.post('/create',(req,res)=>{
     res.setHeader("Access-Control-Allow-Origin", "*");
     Create(req.body);
-    console.log('Created!!!!')
+    console.log('Created!!!!');
 });
-
 module.exports = UserController;

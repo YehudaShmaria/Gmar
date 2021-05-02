@@ -17,26 +17,17 @@ var insertNormolData = function(UserName,Day)
 });
 }
 
-var insert7Data = function(UserName,Day,CurrentWeight)
+var GetAllUsers = function(UpdateUser)
 {
-  Week.CurrentWeight = CurrentWeight;
-  // הכנס נתון למערך הזמני
-  insertNormolData(UserName,Day);
-  console.log('Good!!')
   MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},function(err,db){
     if (err) throw err;
     var dbo = db.db('Dayet');
-    var myquery = { Name:UserName};
-    dbo.collection("Users").findOne(myquery, function(err, res) {
-      if (err) throw err;
-      console.log(res);
-      Week.Days = res.TempWeek;
-      console.log("We found The User");
-     insertWeekToWeeks(UserName,res.TempWeek);
-    db.close();
-    });
+     dbo.collection("Users").find({}).toArray(function(err, res){
+       if (err) throw err;
+       UpdateUser(res);
+     });
 });
-};
+}
 
 var insertWeekToWeeks = function(UserName,Week)
 {
@@ -80,6 +71,22 @@ var getDataForUser = function(userName,sendToView)
     });
 });
 }
+
+var UpdateProfile = function(Update){
+  MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},function(err,db){
+    if (err) throw err;
+    var dbo = db.db('Dayet');
+    var myquery = { Name:Update.Name};
+    var newvalues  =  {$set:{Gender:Update.GenderUpdate, Purpose: Update.UpdatePurpose, WeightNow: Update.UpdateWeightNow, Weight:Update.UpdateWeight }}
+     dbo.collection("Users").updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("Profile is Update!!!");
+     });
+});
+}
+
 module.exports.insertNormolData = insertNormolData;
-module.exports.insert7Data = insert7Data;
+module.exports.insertWeekToWeeks = insertWeekToWeeks;
 module.exports.getDataForUser = getDataForUser;
+module.exports.UpdateProfile = UpdateProfile;
+module.exports.GetAllUsers = GetAllUsers;

@@ -3,6 +3,7 @@ var User = {
     Password: "",
     Gender: "",
     Weight: 0,
+    WeightNow: 0,
     Purpose: 0,
     TempWeek: [],
     Weeks: []

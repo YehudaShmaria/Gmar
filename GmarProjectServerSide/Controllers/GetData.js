@@ -6,8 +6,8 @@ GetDataController.post('/',(req,res)=>{
     res.setHeader("Access-Control-Allow-Origin", "*");
     console.log("We got the Day!!!");
     console.log(req.body);
-    bluser.InsertData(req.body.Name,req.body.Day,req.body.CurrentWeight);
-    res.send('Yaaap')
+    bluser.InsertData(req.body.Name,req.body.Day);
+    res.send('Yaaap');
 });
 
 GetDataController.get('/getDataForUser/:userName',(req,res)=>{
@@ -18,5 +18,10 @@ GetDataController.get('/getDataForUser/:userName',(req,res)=>{
         console.log('We Send The Data!!!')
     });
 })
+
+GetDataController.post('/UpdateProfile',(req,res)=>{
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    bluser.UpdateProfile(req.body);
+});
 
 module.exports = GetDataController;

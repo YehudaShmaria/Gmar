@@ -10,3 +10,15 @@ C:\Users\יהודה\Desktop\פרויקט גמר\GmarProject\GmarProjectData\obj\
 C:\Users\יהודה\Desktop\פרויקט גמר\GmarProject\GmarProjectData\obj\Debug\GmarProjectData.csproj.CopyComplete
 C:\Users\יהודה\Desktop\פרויקט גמר\GmarProject\GmarProjectData\obj\Debug\GmarProjectData.dll
 C:\Users\יהודה\Desktop\פרויקט גמר\GmarProject\GmarProjectData\obj\Debug\GmarProjectData.pdb
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\bin\Debug\GmarProjectData.dll.config
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\bin\Debug\GmarProjectData.dll
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\bin\Debug\GmarProjectData.pdb
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\bin\Debug\EntityFramework.dll
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\bin\Debug\EntityFramework.xml
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\obj\Debug\GmarProjectData.csprojAssemblyReference.cache
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\obj\Debug\GmarProjectData.csproj.CoreCompileInputs.cache
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\obj\Debug\GmarProjectData.csproj.CopyComplete
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\obj\Debug\GmarProjectData.dll
+C:\Users\יהודה\Desktop\פרויקט גמר\Gmar\GmarProject\GmarProjectData\obj\Debug\GmarProjectData.pdb
