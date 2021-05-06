@@ -3,8 +3,14 @@
     ViewBag.Title = "Home";
 }
 <div class="container text-center">
+
+    <div class="justify-content-center">
+        <div style="background-color:azure; height:100px">
+            <h1 style="font-style:italic;font-size:50px;" class="text-primary"><u>Home Page</u></h1>
+        </div>
+    </div>
+
     <div>
-        <h1 style="font-style:italic;font-size:50px" class="text-primary"><u>Home Page</u></h1>
         <h2 style="display:none" id="Wel" class="text-success"> @User.Identity.Name שמחים שחזרת אלינו </h2>
         <img onload="GetData()" style="height:200px; padding:30px" src="~/Images/Home.jfif">
     </div>
@@ -45,22 +51,24 @@
                 <br />
                 <a href="" class="btn btn-warning btn">הכנס נתון יומי</a>
             </div>
-            <img class="img-thumbnail" src="~/Images/Week.jpg" style="height:150px; display:inline-block; margin-right:25px"  />
+            <img class="img-thumbnail" src="~/Images/Week.jpg" style="height:150px; display:inline-block; margin-right:25px" />
         </div>
     </div>
 </div>
+
+
 <script>
     let today = new Date();
+
     var counter = ((today.getDay() + 1) / 7) * 100 | 0;
+
     var id = "DoProgress";
     var id1 = "DoProgress1";
+
     function Test(Obj) {
         $('#Wel').fadeIn(3000);
         $('#info').text('משקל נוכחי' + ' ' + Obj.Weight)
-        //for (var i = 0; i < Obj.TempWeek.length; i++) {
-        //    document.getElementById('Test').innerHTML += Obj.TempWeek[i].Morning + "<br>";
-        //    document.getElementById('Test1').innerHTML += Obj.TempWeek[i].Morning + "<br>";
-        //}
+  
         var counter1 = (Obj.TempWeek.length / 7) * 100 | 0;
         $('#show').fadeIn(3000, function () {
             printPresent(id, counter);

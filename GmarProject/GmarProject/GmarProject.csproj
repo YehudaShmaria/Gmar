@@ -152,6 +152,7 @@
     <Content Include="Images\Contact.jpg" />
     <Content Include="Images\empti.png" />
     <Content Include="Images\Home.jfif" />
+    <Content Include="Images\Machine Learning.jpg" />
     <Content Include="Images\Week.jpg" />
     <Content Include="Images\הורדה.jfif" />
     <Content Include="Scripts\bootstrap.js" />
