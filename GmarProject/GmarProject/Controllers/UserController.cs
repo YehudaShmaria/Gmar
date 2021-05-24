@@ -18,6 +18,7 @@ namespace GmarProject.Controllers
         {
             return View();
         }
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(Entry u, string retrunUrl)
@@ -57,7 +58,7 @@ namespace GmarProject.Controllers
             user.UserName = entry.Name;
             user.Password = entry.Password;
             user.RoleName = "user";
-                 
+
             try
             {
                 user.RoleName = "user";
@@ -77,8 +78,6 @@ namespace GmarProject.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
-
-
 
     }
 }

@@ -2,6 +2,34 @@
 @{
     ViewBag.Title = "Home";
 }
+<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: cornflowerblue;
+            color: white;
+        }
+</style>
 <div class="container text-center">
 
     <div class="justify-content-center">
@@ -15,6 +43,8 @@
         <img onload="GetData()" style="height:200px; padding:30px" src="~/Images/Home.jfif">
     </div>
     <p style="font-size:25px;color:black; background-color:aliceblue">אנחנו פה על מנת לעשות את מירב המאמצים בכדי לעזור לך להיות מי שאתה רוצה להיות, והכי חשוב בקלות ובהנאה מכל רגע ורגע!!!!!</p>
+
+
     <hr />
 
     <div class="row justify-content-center">
@@ -51,36 +81,96 @@
                 <br />
                 <a href="" class="btn btn-warning btn">הכנס נתון יומי</a>
             </div>
-            <img class="img-thumbnail" src="~/Images/Week.jpg" style="height:150px; display:inline-block; margin-right:25px" />
+            <img class="img-thumbnail" src="~/Images/Week.jpg" style="height:140px; display:inline-block; margin-right:25px" />
         </div>
     </div>
-</div>
 
+    <button id="btn" onclick="ShowData()" style="margin-top:30px" type="button" class="btn btn-success btn-lg btn-block">לחץ על מנת לראות את נתוני השבוע</button>
+
+    <div id="Data" style="margin-top:30px;display:none" class="table-responsive">
+        <table id="customers" class="table"></table>
+    </div>
+
+</div>
 
 <script>
     let today = new Date();
-
     var counter = ((today.getDay() + 1) / 7) * 100 | 0;
+
+    let day = new Date()
 
     var id = "DoProgress";
     var id1 = "DoProgress1";
 
     function Test(Obj) {
         $('#Wel').fadeIn(3000);
-        $('#info').text('משקל נוכחי' + ' ' + Obj.Weight)
-  
+        if (Obj.WeightNow == 0) {
+            document.getElementById('info').innerHTML = 'משקל נוכחי: ' + Obj.WeightNow + " <br> אנא עדכן נתונים בפרופיל "
+        }
+        else
+            $('#info').text('משקל נוכחי: ' + Obj.WeightNow)
+
         var counter1 = (Obj.TempWeek.length / 7) * 100 | 0;
         $('#show').fadeIn(3000, function () {
             printPresent(id, counter);
             printPresent(id1, counter1);
         });
-        
-        function printPresent(id,counter) {
+
+        function printPresent(id, counter) {
             document.getElementById(id).style.width = `${counter}%`;
             document.getElementById(id).innerHTML = counter + '%';
         }
-         
+
+        CreateTable(Obj.TempWeek)
     }
+
+    function ShowData() {
+        var btn = document.getElementById('btn');
+        var x = document.getElementById("Data");
+        if (x.style.display === "none") {
+            $('#Data').fadeIn(3000, function () {
+                btn.innerHTML = 'סגור את הטבלה';
+            });
+        } 
+        else {
+            $('#Data').fadeOut(2000, function () {
+                btn.innerHTML = 'לחץ על מנת לראות את נתוני השבוע';
+            }
+           );
+
+        }
+    }
+
+    function CreateTable(Teachres) {
+
+        let table = document.querySelector("table");
+        table.innerHTML = '';
+        let data = Object.keys(Teachres[0]);
+        generateTableHead(table, data);
+        generateTable(table, Teachres);
+        function generateTableHead(table, data) {
+            let thead = table.createTHead();
+            let row = thead.insertRow();
+            for (let key of data) {
+
+                let th = document.createElement("th");
+                let text = document.createTextNode(key);
+                th.appendChild(text);
+                row.appendChild(th);
+            }
+        }
+        function generateTable(table, data) {
+            for (let element of data) {
+                let row = table.insertRow();
+                for (key in element) {
+                    let cell = row.insertCell();
+                    let text = document.createTextNode(element[key]);
+                    cell.appendChild(text);
+                }
+            }
+        }
+    }
+
 </script>
 
 

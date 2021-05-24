@@ -12,10 +12,8 @@ namespace GmarProject.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        
         public ActionResult Home()
         {
-            BLUser bLUser = new BLUser();
             return View();
         }
 

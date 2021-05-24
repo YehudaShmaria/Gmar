@@ -3,7 +3,235 @@
     ViewBag.Title = "Data Service";
 }
 
-<div class="text-center">
+<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: cornflowerblue;
+            color: white;
+        }
+</style>
+
+
+<div class="container text-center">
     <h1 style="font-style:italic;font-size:50px" class="text-primary"><u>Data Service</u></h1>
-    <h3>פה יהיה שירותי מידע</h3>
+    <h3> שירותי מידע ו API</h3>
+    <button id="btnSport" onclick="ShowSport()" style="margin-top:30px" type="button" class="btn btn-success">שירותי ספורט</button>
+    <button id="btnFood" onclick="ShowFood()" style="margin-top:30px" type="button" class="btn btn-success">שירותי אוכל</button>
+
+    <div class="text-center" style="display:none; margin-top:20px" id="sport">
+        <div class="row text-center">
+            <input type="search" id="searche" class="form-control" placeholder="הכנס מילת חיפוש (לא חובה) " aria-label="Search" />
+            <div style="margin-top:15px" class="text-right">
+                <button onclick="GetSport()" type="button" class="btn btn-primary"> מתקני ספורט</button>
+                <button onclick="GetCorus()" type="button" class="btn btn-primary"> סוגי קורסים והכשרות</button>
+                <button onclick="Test()" type="button" class="btn btn-primary">סגור טבלה</button>
+            </div>
+            <div style="margin-top:50px" class="table-responsive">
+                <table id="customers" class="table"></table>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center" style="display:none; margin-top:20px" id="food">
+        <div class="row text-center">
+            <input type="search" id="text" class="form-control" placeholder="הכנס סוג אוכל" aria-label="Search" />
+            <div style="margin-top:15px" class="text-right">
+                <button onclick="DoTranslation()" type="button" class="btn btn-primary"> אוכל</button>
+                @*<button onclick="GetCorus()" type="button" class="btn btn-primary"> מתכונים</button>*@
+                <button onclick="Test()" type="button" class="btn btn-primary">סגור טבלה</button>
+            </div>
+            <div style="margin-top:50px" class="table-responsive">
+                <table id="foodTable" class="table"></table>
+            </div>
+        </div>
+    </div>
+
+
 </div>
+
+<script>
+    var CorusUrl = 'https://data.gov.il/api/3/action/datastore_search?resource_id=d879e91b-419a-4e63-8e20-2ff798a234c1';
+    var SportUrl = 'https://data.gov.il/api/3/action/datastore_search?resource_id=228ea2d3-c8ce-4e12-ba80-047bdb8518b5';
+    var foodTable = document.getElementById('foodTable');
+    
+    function ShowSport() {
+        document.getElementById("food").style.display = 'none';
+        var x = document.getElementById("sport");
+        if (x.style.display === "none") {
+            $('#sport').fadeIn(500);
+        }
+        else
+          $('#sport').fadeOut(500);
+       
+    }
+
+    function ShowFood() {
+        document.getElementById("sport").style.display = 'none';
+        var x = document.getElementById("food");
+        if (x.style.display === "none") {
+            $('#food').fadeIn(500);
+        }
+        else
+            $('#food').fadeOut(500);
+    }
+
+
+    function GetCorus() {
+        var s = document.getElementById('searche').value;
+        if (s != '') {
+            CorusUrl += `&q=${s}`
+        }
+        GetAPI(CorusUrl);
+    }
+
+    function GetSport() {
+        var s = document.getElementById('searche').value;
+        if (s != '') {
+            SportUrl += `&q=${s}`
+        }
+        GetAPI(SportUrl);
+    }
+
+    function Test() {
+        let table = document.querySelector("table");
+        table.innerHTML = '';
+    }
+
+    function GetAPI(Url) {
+        var xml = new XMLHttpRequest();
+        xml.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var myArr = JSON.parse(this.responseText);
+                console.log(myArr.result.records);
+                CreateTable(myArr.result.records);
+            }
+        };
+        xml.open('GET', Url, true)
+        xml.send();
+    }
+
+    function CreateTable(Teachres) {
+        alert('te')
+        let table = document.querySelector("table");
+        table.innerHTML = '';
+        let data = Object.keys(Teachres[0]);
+        generateTableHead(table, data);
+        generateTable(table, Teachres);
+
+        function generateTableHead(table, data) {
+            let thead = table.createTHead();
+            let row = thead.insertRow();
+            for (let key of data) {
+                if (key != '_id') {
+                    let th = document.createElement("th");
+                    let text = document.createTextNode(key);
+                    th.appendChild(text);
+                    row.appendChild(th);
+                }
+               
+            }
+        }
+
+        function generateTable(table, data) {
+            for (let element of data) {
+                let row = table.insertRow();
+                for (key in element) {
+                    if (key != '_id') {
+                        let cell = row.insertCell();
+                        let text = document.createTextNode(element[key]);
+                        cell.appendChild(text);
+                    }
+                }
+            }
+        }
+    }
+
+
+    function DoTranslation() {
+
+        foodTable.innerHTML = "";
+        var text = document.getElementById('text').value;
+        const data = `q=${text}!&target=en&source=he`;
+
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === this.DONE) {
+                console.log(this.responseText);
+                var Obj = this.responseText;
+                Obj = JSON.parse(Obj);
+                ConvertToGoodString(Obj);
+            }
+        });
+
+        xhr.open("POST", "https://google-translate1.p.rapidapi.com/language/translate/v2");
+        xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("accept-encoding", "application/gzip");
+        xhr.setRequestHeader("x-rapidapi-key", "6f1aabd2aamsh9401db3ac7d2320p15d92djsnb6e978a13b44");
+        xhr.setRequestHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com");
+        xhr.send(data);
+
+    }
+
+    function ConvertToGoodString(Obj) {
+        var str = Obj.data.translations[0].translatedText;
+        str = str.substring(0, str.length - 1);
+        GetApi(str)
+    }
+
+    function GetApi(text) {
+        var Url = `https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=${text}&app_id=96681553&app_key=24c39b40ecd4808a804a8a9970f595f3`
+        console.log(Url);
+        var xml = new XMLHttpRequest();
+        xml.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var myArr = JSON.parse(this.responseText);
+                console.log(myArr);
+                //PrintAPI(myArr)
+                myArr.hints.forEach(CreateTableFood);
+            }
+        };
+        xml.open('GET', Url, true)
+        xml.send();
+    }
+
+
+
+    var counter = 0;
+    function CreateTableFood(item) {
+        if (counter % 3 == 0) {
+            tr = document.createElement('tr');
+            foodTable.appendChild(tr);
+        }
+        td1 = document.createElement('td');
+        td1.innerHTML = item.food.label;
+        foodTable.appendChild(td1);
+        td2 = document.createElement('td');
+        td2.innerHTML = `<img alt="מצטערים אין תמונה" class="img-thumbnail" src="${item.food.image}" style="height:140px; display:inline-block; margin-right:25px" />`;
+        foodTable.appendChild(td2);
+        counter++;
+    }
+  
+</script>
