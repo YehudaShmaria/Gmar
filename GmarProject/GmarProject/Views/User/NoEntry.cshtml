@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NoEntry</title>
+</head>
+<body>
+    <div style="text-align:center">
+        <h1>שם משתמש או סיסמא שגויים </h1>
+        <h2>נסה להיכנס שוב פעם או הירשם</h2>
+        @Html.ActionLink("צור חשבון", "CreateUser", "User")
+        @Html.ActionLink("נסה שוב", "Login", "User")
+    </div>
+</body>
+</html>

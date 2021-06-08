@@ -6,6 +6,7 @@
     <title>כאן נעשה דיאטה</title>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
@@ -26,7 +27,7 @@
     <script>
         function GetData() {
         var User = "@HttpContext.Current.User.Identity.Name";
-        var Url = 'http://localhost:3000/getdata/getDataForUser/'+User
+            var Url = 'http://localhost:3000/getdata/getDataForUser/'+User
         var xml = new XMLHttpRequest();
         xml.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200){
@@ -81,12 +82,19 @@
                         <li class="nav-item">
                             @Html.ActionLink("סיכום שבועי", "WeeklySummary")
                         </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("מכונה לומדת", "MachineLearning")
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">מדע הנתונים</a>
+                            <ul class="dropdown-menu text-right">
+                                <li><a class="dropdown-item" href="@Url.Action("Recipe")">שירותי מידע ו API</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("MachineLearning")">מכונה לומדת וסטיסטיקה</a></li>
+                            </ul>
+                        </li>
+                        @*<li class="nav-item">
+                            @Html.ActionLink("נתונים סטיסטים ומכונה לומדת", "MachineLearning")
                         </li>
                         <li class="nav-item">
                             @Html.ActionLink("שירותי מידע ו API", "Recipe")
-                        </li>
+                        </li>*@
                         <li class="nav-item">
                             @Html.ActionLink("צור קשר", "Contact")
                         </li>
@@ -123,34 +131,19 @@
                     <div class="row">
                         <!--Grid column-->
                         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                            <h5 class="text-uppercase">Footer Content</h5>
+                            <h5 class="text-uppercase">Before finishing the page</h5>
 
                             <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                                molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-                                voluptatem veniam, est atque cumque eum delectus sint!
+                                אנחנו מנסים לתת את השירות הנוח ביותר בדגש על מקצועיות, חדשנות, ואליפות,
+                                מקווים שאתה מנצל את מקסימום הטכנולוגיה שאנו מספקים,
+                                אגב טיפ חשוב תמיד כשאתה רוצה להשיג משהו תציב לעצמך מטרות ברורות וקצרות טווח וככה לאט לאט תתקדם,
+                                לאט אבל בטוח,
+                                <br />
+                                בכל מקרה תמיד נשמח לשמוע ממך.
                             </p>
                         </div>
                         <!--Grid column-->
                         <!--Grid column-->
-                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                            <h4 class="text-uppercase">נתונים</h4>
-
-                            <ul class="list-unstyled mb-0">
-                                <li>
-                                    <a href="#!" class="text-dark">דף הבית</a>
-                                </li>
-                                <li>
-                                    <a href="#!" class="text-dark">מכונה לומדת</a>
-                                </li>
-                                <li>
-                                    <a href="#!" class="text-dark">סיכום שבועי</a>
-                                </li>
-                                <li>
-                                    <a href="#!" class="text-dark">הכנסת נתון יומי</a>
-                                </li>
-                            </ul>
-                        </div>
                         <!--Grid column-->
                         <!--Grid column-->
                         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
@@ -158,16 +151,36 @@
 
                             <ul class="list-unstyled">
                                 <li>
-                                    <a href="#!" class="text-dark">תפריטים</a>
+                                    <a href="@Url.Action("Home")" class="text-dark">דף הבית</a>
                                 </li>
                                 <li>
-                                    <a href="#!" class="text-dark">צור קשר</a>
+                                    <a href="@Url.Action("Contact")" class="text-dark">צור קשר</a>
                                 </li>
                                 <li>
-                                    <a href="#!" class="text-dark">הפרופיל שלי</a>
+                                    <a href="@Url.Action("MyProfile")" class="text-dark">הפרופיל שלי</a>
                                 </li>
                                 <li>
-                                    <a href="#!" class="text-dark">יציאה מהאתר</a>
+                                    <a href="@Url.Action("SignOut", "User")" class="text-dark">יציאה מהאתר</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h4 class="text-uppercase">נתונים</h4>
+
+                            <ul class="list-unstyled mb-0">
+                              
+                                <li>
+                                    <a href="@Url.Action("MachineLearning")" class="text-dark">מכונה לומדת וסטיסטיקה</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("WeeklySummary")" class="text-dark">סיכום שבועי</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("EntryData")" class="text-dark">הכנסת נתון יומי</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Recipe")" class="text-dark">שירותי מידע ו API</a>
                                 </li>
                             </ul>
                         </div>
@@ -179,7 +192,7 @@
                 <!-- Copyright -->
                 <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                    כל הזכויות שמורות © :
-                    <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                    <a class="text-dark" href="https://github.com/YehudaShmaria">Yehuda The Jew</a>
                 </div>
                 <!-- Copyright -->
             </footer>

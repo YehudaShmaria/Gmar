@@ -8,7 +8,7 @@ var insertNormolData = function(UserName,Day)
     if (err) throw err;
     var dbo = db.db('Dayet');
     var myquery = { Name:UserName};
-    var PushDay = { $push:{TempWeek: Day}};
+    var PushDay = {$push:{TempWeek:Day}};
     dbo.collection("Users").updateOne(myquery, PushDay, function(err, res){
       if (err) throw err;
       console.log("1 Day Is posh !!!");
@@ -29,13 +29,30 @@ var GetAllUsers = function(UpdateUser)
 });
 }
 
+var insertCurrentWeight = function(UserName,CurrentWeight)
+{
+  var Data = {
+    "CurrentWeight":CurrentWeight
+  }
+  MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},function(err,db){
+    if (err) throw err;
+    var dbo = db.db('Dayet');
+    var myquery = { Name:UserName};
+    var Phshweek = {$push:{TempWeek: Data}}
+    dbo.collection("Users").updateOne(myquery, Phshweek, function(err, res) {
+      if (err) throw err;
+      console.log("CurrentWeight Is Update To TempWeek !!!");
+    });
+});
+}
+
 var insertWeekToWeeks = function(UserName,Week)
 {
   MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},function(err,db){
     if (err) throw err;
     var dbo = db.db('Dayet');
     var myquery = { Name:UserName};
-    var Phshweek = { $push: {Weeks: Week}}
+    var Phshweek = { $push:{Weeks: Week}}
     dbo.collection("Users").updateOne(myquery, Phshweek, function(err, res) {
       if (err) throw err;
       console.log("1 week Is posh !!!");
@@ -90,3 +107,4 @@ module.exports.insertWeekToWeeks = insertWeekToWeeks;
 module.exports.getDataForUser = getDataForUser;
 module.exports.UpdateProfile = UpdateProfile;
 module.exports.GetAllUsers = GetAllUsers;
+module.exports.insertCurrentWeight = insertCurrentWeight;

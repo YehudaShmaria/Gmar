@@ -4,32 +4,51 @@
 }
 
 <style>
-    #customers {
+    .MyTable {
         font-family: Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         width: 100%;
     }
 
-        #customers td, #customers th {
+        .MyTable td, #customers th {
             border: 1px solid #ddd;
             padding: 8px;
         }
 
-        #customers tr:nth-child(even) {
+        .MyTable tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
-        #customers tr:hover {
+        .MyTable tr:hover {
             background-color: #ddd;
         }
 
-        #customers th {
+        .MyTable th {
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: center;
             background-color: cornflowerblue;
             color: white;
         }
+
+    .my-div {
+        float: left;
+        width: 100%;
+        background: rgb(249, 247, 249);
+    }
+
+        .my-div span {
+            float: left;
+            width: 100%;
+        }
+
+    span:nth-child(even) {
+        color: green;
+    }
+
+    span:nth-child(odd) {
+        color: red;
+    }
 </style>
 
 
@@ -48,7 +67,7 @@
                 <button onclick="Test()" type="button" class="btn btn-primary">סגור טבלה</button>
             </div>
             <div style="margin-top:50px" class="table-responsive">
-                <table id="customers" class="table"></table>
+                <table id="customers" class="MyTable table"></table>
             </div>
         </div>
     </div>
@@ -57,24 +76,33 @@
         <div class="row text-center">
             <input type="search" id="text" class="form-control" placeholder="הכנס סוג אוכל" aria-label="Search" />
             <div style="margin-top:15px" class="text-right">
-                <button onclick="DoTranslation()" type="button" class="btn btn-primary"> אוכל</button>
-                @*<button onclick="GetCorus()" type="button" class="btn btn-primary"> מתכונים</button>*@
-                <button onclick="Test()" type="button" class="btn btn-primary">סגור טבלה</button>
-            </div>
-            <div style="margin-top:50px" class="table-responsive">
-                <table id="foodTable" class="table"></table>
+                <button onclick="GetApi()" type="button" class="btn btn-primary"> אוכל</button>
+                <button onclick="CloseTable()" type="button" class="btn btn-primary">סגור טבלה</button>
             </div>
         </div>
     </div>
 
+    <section style="margin-top:40px" class="wrapper">
+        <div class="container-fostrap">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div id="FoodData">
 
-</div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
 
 <script>
     var CorusUrl = 'https://data.gov.il/api/3/action/datastore_search?resource_id=d879e91b-419a-4e63-8e20-2ff798a234c1';
     var SportUrl = 'https://data.gov.il/api/3/action/datastore_search?resource_id=228ea2d3-c8ce-4e12-ba80-047bdb8518b5';
-    var foodTable = document.getElementById('foodTable');
-    
+    var FoodData = document.getElementById('FoodData');
+
     function ShowSport() {
         document.getElementById("food").style.display = 'none';
         var x = document.getElementById("sport");
@@ -83,7 +111,7 @@
         }
         else
           $('#sport').fadeOut(500);
-       
+
     }
 
     function ShowFood() {
@@ -124,7 +152,15 @@
             if (this.readyState == 4 && this.status == 200) {
                 var myArr = JSON.parse(this.responseText);
                 console.log(myArr.result.records);
-                CreateTable(myArr.result.records);
+                try {
+                    CreateTable(myArr.result.records);
+                }
+                catch (err) {
+                    let table = document.querySelector("table");
+                    table.innerHTML = '';
+                    table.innerHTML = '<h1> לצערי לא מצאנו נתונים ממאגר נתוני ה API אנא נסו נתון אחר</h1>';
+                }
+
             }
         };
         xml.open('GET', Url, true)
@@ -132,7 +168,6 @@
     }
 
     function CreateTable(Teachres) {
-        alert('te')
         let table = document.querySelector("table");
         table.innerHTML = '';
         let data = Object.keys(Teachres[0]);
@@ -149,8 +184,9 @@
                     th.appendChild(text);
                     row.appendChild(th);
                 }
-               
+
             }
+
         }
 
         function generateTable(table, data) {
@@ -201,7 +237,9 @@
         GetApi(str)
     }
 
-    function GetApi(text) {
+    function GetApi(text1) {
+        FoodData.innerHTML = "";
+        var text = document.getElementById('text').value;
         var Url = `https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=${text}&app_id=96681553&app_key=24c39b40ecd4808a804a8a9970f595f3`
         console.log(Url);
         var xml = new XMLHttpRequest();
@@ -221,17 +259,34 @@
 
     var counter = 0;
     function CreateTableFood(item) {
-        if (counter % 3 == 0) {
-            tr = document.createElement('tr');
-            foodTable.appendChild(tr);
-        }
-        td1 = document.createElement('td');
-        td1.innerHTML = item.food.label;
-        foodTable.appendChild(td1);
-        td2 = document.createElement('td');
-        td2.innerHTML = `<img alt="מצטערים אין תמונה" class="img-thumbnail" src="${item.food.image}" style="height:140px; display:inline-block; margin-right:25px" />`;
-        foodTable.appendChild(td2);
-        counter++;
+        var atr = '';
+        $.each(item.food.nutrients, function (key, value) {
+            atr += "<span>" + key + ": " + value + "</span> <br>";
+        });
+
+        div = document.createElement('div');
+        div.innerHTML = `<div class="hideme col-xs-12 col-sm-4 ">
+                      <div class="card">
+                          <a class="img-card" href="#">
+                          <img src="${item.food.image}" alt="מצטערים אין תמונה משירות API"/>
+                        </a>
+                          <div style="text-align: center;" class="card-content">
+                              <h2 class="card-title">
+                                   ${item.food.label}
+                              </h2>
+                              <p class="my-div">
+                                <h3>נתוני אוכל</h3>
+                                   ${atr}
+                              </p>
+                          </div>
+                      </div>
+                  </div>`
+        FoodData.appendChild(div);
     }
-  
+
+    function CloseTable() {
+        FoodData.innerHTML = "";
+    }
+
+
 </script>

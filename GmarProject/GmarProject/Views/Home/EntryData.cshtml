@@ -51,10 +51,10 @@
                 <div style="border-radius:5px" class="col-lg-4 text-right">
                     <h2 class="text-center" style="border:solid; background-color:darkkhaki; border-radius:5px">שירותי API</h2>
                     <input id="text" type="text" />
-                    <button onclick="DoTranslation()">לחץ על מנת לקבל API</button>
+                    <button onclick="GetApi()">לחץ על מנת לקבל API</button>
 
                     <div style="text-align:center">
-                        <h2 id="Try"></h2>
+                        <h2 id="FoodName"></h2>
 
                         <img class="img-thumbnail" id="APIimg" src="" style="height:150px; display:none; margin-right:25px" />
 
@@ -111,13 +111,13 @@
                 <div style="border-radius:5px" class="col-lg-4 text-right">
                     <h2 class="text-center" style="border:solid; background-color:darkkhaki; border-radius:5px">נתונים חשובים של האתר</h2>
                     <div class="btn-group-vertical">
-                        <a href="" class="btn btn-info btn">פרופיל שלי</a>
+                        <a href="@Url.Action("MyProfile")" class="btn btn-info btn">פרופיל שלי</a>
                         <br />
-                        <a href="" class="btn btn-warning btn">מכונה לומדת</a>
+                        <a href="@Url.Action("MachineLearning")" class="btn btn-warning btn">מכונה לומדת</a>
                         <br />
-                        <a href="" class="btn btn-info btn">סיכום שבועי</a>
+                        <a href="@Url.Action("WeeklySummary")" class="btn btn-info btn">סיכום שבועי</a>
                         <br />
-                        <a href="" class="btn btn-warning btn">הכנס נתון יומי</a>
+                        <a href="@Url.Action("EntryData")" class="btn btn-warning btn">הכנס נתון יומי</a>
                     </div>
                     <img class="img-thumbnail" src="~/Images/Week.jpg" style="height:140px; display:inline-block; margin-right:25px" />
                 </div>
@@ -186,7 +186,8 @@
         GetApi(str)
     }
 
-    function GetApi(text) {
+    function GetApi() {
+        var text = document.getElementById('text').value;
         var Url = `https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=${text}&app_id=96681553&app_key=24c39b40ecd4808a804a8a9970f595f3`
         console.log(Url);
         var xml = new XMLHttpRequest();
@@ -202,7 +203,7 @@
     }
 
     function PrintAPI(Obj) {
-        document.getElementById('Try').innerHTML = Obj.hints[1].food.label;
+        document.getElementById('FoodName').innerHTML = Obj.hints[1].food.label;
         document.getElementById('APIimg').style.display = "inline-block";
         document.getElementById('APIimg').src = Obj.hints[1].food.image;
         console.log(Obj.hints[1]);

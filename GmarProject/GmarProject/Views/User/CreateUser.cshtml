@@ -8,48 +8,66 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width" />
     <title>CreateUser</title>
 </head>
 <body>
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div style="text-align:center" class="form-horizontal">
-            <h4>צור חשבון</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "Name" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger"})
-                </div>
+    <div style="margin-top:50px" class="container">
+
+        <div class="row">
+
+            <div class="col-md-6 text-center">
+                <img class="img-thumbnail" src="https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,w_500/527731" />
             </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", id = "Password" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger"})
-                </div>
+
+            <div class="col-md-6 text-center">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div style="text-align:center" class="form-horizontal">
+                        <h4>צור חשבון</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "Name" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @class = "form-control", id = "Password" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div style="padding:5px" class="form-group">
+                            <div>
+                                <input onclick="SendData()" type="submit" value="צור חשבון" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-    
-            <div style="padding:5px" class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input onclick="SendData()" type="submit" value="צור" class="btn btn-primary" />
-                </div>
-            </div>
+
         </div>
-    }
+
+
         <script>
             function SendData() {
                 var n = document.getElementById('Name').value;
                 var p = document.getElementById('Password').value;
                 const obj = {
                     name: n,
-                    password:p
+                    password: p
                 }
                 const json = JSON.stringify(obj);
                 const xml = new XMLHttpRequest();
@@ -60,7 +78,7 @@
                 alert('נתונים נשלחו בהצלחה!!!')
             }
         </script>
-       
+
 </body>
 
 </html>

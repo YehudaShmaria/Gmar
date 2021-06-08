@@ -18,6 +18,7 @@ function intervalFunc(){
     var today = new Date();
     if(today.getDay() == 6)
     {
+       console.log('This Is The Day')
         bluser.UpdateAllUsers();
     }
     else
@@ -25,10 +26,8 @@ function intervalFunc(){
         console.log('This Is Not The Day!!!')
     }
 }
-
 // 86400000 one Day
 setInterval(intervalFunc,86400000);
-
 app.listen(port, () => {
     console.log(`listen on port ${port}`);
 });

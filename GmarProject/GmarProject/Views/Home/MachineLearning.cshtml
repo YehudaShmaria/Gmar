@@ -2,27 +2,160 @@
 @{
     ViewBag.Title = "MachineLearning";
 }
-
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.1/dist/chart.min.js"></script>
 <div class="text-center">
 
     <div class="justify-content-center">
         <div style="background-color:azure; height:100px">
-            <h1 style="font-style:italic;font-size:50px" class="text-primary"><u>Machine Learning</u></h1>
+            <h1 style="font-style:italic;font-size:50px" class="text-primary"><u>Machine Learning & Statistical data</u></h1>
         </div>
     </div>
 
     <img onload="GetData()" style="height:100px;  border-radius: 8px; margin:30px" src="~/Images/Machine Learning.jpg" />
 
-    
-
     <h3>פה יהיה מכונה לומדת</h3>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <canvas id="myChart1"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.1/dist/chart.min.js"></script>
 <script>
+
+    var T = [];
     function Test3(Obj) {
         console.log(Obj)
+        PrintChart(Obj.Weeks);
+        PrintChart2(Obj.Weeks);
+    }
+    function PrintChart(Obj) {
+        console.log(Obj)
+        var Dates = [];
+        var Weight = [];
+        for (var i = 0; i < Obj.length; i++) {
+            for (var z = 0; z < Obj[i].length; z++) {
+                if (typeof Obj[i][z].Date !== 'undefined' && z == 0){
+                    Dates.push(Obj[i][z].Date);
+                }
+                if (typeof Obj[i][z].CurrentWeight !== 'undefined') {
+                    Weight.push(Obj[i][z].CurrentWeight);
+                }
+            }
+        }
+        console.log(Dates);
+        console.log(Weight);
+        var ctxB = document.getElementById("myChart").getContext('2d');
+        var myBarChart = new Chart(ctxB, {
+            type: 'bar',
+            data: {
+                labels: Dates,
+                datasets: [{
+                    label: '# נתוני משקל ביחס לשבועות',
+                    data: Weight,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
     }
 
+    function PrintChart2(Obj) {
+        console.log(Obj)
+        var Mode = ["שמח","עצבני","דיכאון"];
+        var Num = [0,0,0];
+        for (var i = 0; i < Obj.length; i++) {
+            for (var z = 0; z < Obj[i].length; z++) {
+                console.log(Obj[i][z].Mood);
+                //if (typeof Obj[i][z].Mood !== 'undefined') {
+                    switch (Obj[i][z].Mood) {
+                        case "שמח":
+                            Num[0] += 1;
+                            break;
+                        case "עצבני":
+                            Num[1] += 1;
+                            break;
+                        case "דיכאון":
+                            Num[2] += 1;
+                            break;
+                    }
+                //}
+            }
+        }
+        console.log(Mode);
+        console.log(Num);
+        var ctxB = document.getElementById("myChart1").getContext('2d');
+        var myBarChart = new Chart(ctxB, {
+            type: 'bar',
+            data: {
+                labels: Mode,
+                datasets: [{
+                    label: 'מצב רוח',
+                    data: Num,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
 </script>
-
